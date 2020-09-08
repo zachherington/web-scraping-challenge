@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Mars</title>
+  <title>Current Mars Data</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 
@@ -19,10 +19,48 @@
 
     <div class="row">
       <div class="col-md-12">
-        <h2>Latest Mars News</h2>
-        <h5>{{ mars_data.latest_headline }}</h5>
-        <p>{{ mars_data.headline_desc }}</p>
-        
+          <h2>Latest Mars News</h2>
+          <h5>{{ mars_data.latest_headline }}</h5>
+          <p>{{ mars_data.headline_desc }}</p>
+        </div>
       </div>
     </div>
-   
+
+    <!-- New section divided into two columns -->
+    <div class="row">
+      <div class="col-md-8">
+        <h3><b>Featured JPL Image</b></h3>
+        <img src={{ mars_data.featured_image_url }} height=auto width=750px>
+      </div>
+
+        <!-- Facts Table-->
+        <div class="row">
+          <div class="table">
+            <h3><b>Mars Facts</b></h3>
+            <p>{{mars_data.mars_facts | safe}}</p>
+          </div>
+        </div>       
+      </div>
+    
+          <!-- Mars Hemispheres -->
+        <h3 style="margin-top: 70px; padding-top: 60px; text-align: center;">Mars Hemispheres</h3>
+        <div class="cards">
+          <div class="col-md-12">
+            <div class="row">
+                {% for hemisphere in mars_data.hemi_list %}
+                <div class="col-md-6">
+                    <div class="card bg-light" style="margin: 30px;">
+                        <img class="card-img-top" src="{{ hemisphere.hemi_image }}" />
+                        <div class="card-body">
+                            <h5 class="card-text" style="text-align: center"> {{ hemisphere.hemi_title }} </h5>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  </html>

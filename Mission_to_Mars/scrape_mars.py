@@ -14,7 +14,7 @@ import pymongo
 #### Open Chromedriver
 def init_browser():
     executable_path = {'executable_path': '.\\resources\\chromedriver.exe'}
-    return Browser('chrome', **executable_path, headless=False)
+    return Browser('chrome', **executable_path, headless=True)
 
 
 #### Scrape Web Data
@@ -31,7 +31,7 @@ def scrape():
 
     # Find the Latest News Headline 
     latest_headline = nasa_soup.find_all('div',class_ = 'content_title')[1].text
-    headline_desc = nasa_soup.find_all('div', class_ = 'article_teaser_body')[0].text
+    headline_desc = nasa_soup.find('div', class_ = 'article_teaser_body').text
 
 
 
@@ -63,11 +63,13 @@ def scrape():
     facts_soup = bs(html, 'html.parser')
 
     # Use pandas to scrape mars facts
-    facts_table = pd.read_html(facts_url)[0]
+    mars_facts = pd.read_html(facts_url)[0]
+    mars_facts.columns = ['Measure', 'Value']
+    mars_facts.set_index('Measure', inplace = True)
     
     # Format as html table string and save as 'mars_facts.html'
-    facts_html = facts_table.to_html('mars_facts.html')
-
+    mars_facts = mars_facts.to_html(classes= "table table-striped")
+   
 
 
     ## Data Scraping Mars Hemisphere Images ##
@@ -103,8 +105,8 @@ def scrape():
 
         # Stores results to a dict so we can append 'hemi_list'
         hemi_dict = {}
-        hemi_dict['Hemisphere Name'] = hemi_title
-        hemi_dict['Image Url'] = hemi_image
+        hemi_dict['hemi_title'] = hemi_title
+        hemi_dict['hemi_image'] = hemi_image
 
         hemi_list.append(hemi_dict)
 
@@ -112,7 +114,7 @@ def scrape():
             'latest_headline': latest_headline,
             'headline_desc':headline_desc,
             'featured_image_url': featured_image_url,
-            'facts_html': facts_html,
+            'facts_html': mars_facts,
             'hemi_list': hemi_list
         }
 
