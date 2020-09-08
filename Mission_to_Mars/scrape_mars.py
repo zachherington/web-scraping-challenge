@@ -2,8 +2,14 @@
 from splinter import Browser
 from bs4 import BeautifulSoup as bs
 import pandas as pd
-import requests
 import pymongo
+
+# conn = 'mongodb://localhost:27017'
+# client = pymongo.MongoClient(conn)
+# db = client.mars_db
+# mars_db = db.mars_db
+
+
 
 #### Open Chromedriver
 def init_browser():
@@ -102,15 +108,15 @@ def scrape():
 
         hemi_list.append(hemi_dict)
 
+        mars_data = {
+            'latest_headline': latest_headline,
+            'headline_desc':headline_desc,
+            'featured_image_url': featured_image_url,
+            'facts_html': facts_html,
+            'hemi_list': hemi_list
+        }
 
-    mars_data_scrape = {
-        'Latest Headline': latest_headline,
-        'Headline Description':headline_desc,
-        'Featured JPL Image': featured_image_url,
-        'Mars Facts': facts_html,
-        'Hemisphere Images': hemi_list
-    }
-
+    return mars_data
 
 
 if __name__ == '__main__':
