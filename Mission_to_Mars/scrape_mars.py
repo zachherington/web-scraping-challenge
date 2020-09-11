@@ -68,8 +68,8 @@ def scrape():
     mars_facts.set_index('Measure', inplace = True)
     
     # Format as html table string and save as 'mars_facts.html'
-    mars_facts = mars_facts.to_html(classes= "table table-striped")
-   
+    mars_facts_html = mars_facts.to_html(classes= "table table-striped")
+
 
 
     ## Data Scraping Mars Hemisphere Images ##
@@ -114,12 +114,11 @@ def scrape():
             'latest_headline': latest_headline,
             'headline_desc':headline_desc,
             'featured_image_url': featured_image_url,
-            'facts_html': mars_facts,
+            'facts_html': mars_facts_html,
             'hemi_list': hemi_list
         }
 
     return mars_data
-
 
 if __name__ == '__main__':
     scrape()

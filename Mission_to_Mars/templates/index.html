@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Current Mars Data</title>
+  <title>Mission to Mars</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 
@@ -11,7 +11,7 @@
   <div class="container">
 
     <div class="jumbotron text-center">
-      <h1>Mission To Mars</h1>
+      <h1><b>Mission To Mars</b></h1>
       <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
     </div>
 
@@ -19,48 +19,92 @@
 
     <div class="row">
       <div class="col-md-12">
-          <h2>Latest Mars News</h2>
-          <h5>{{ mars_data.latest_headline }}</h5>
-          <p>{{ mars_data.headline_desc }}</p>
-        </div>
+        <h2><b>Latest Mars News</b></h2>
+        <h5>{{ mars_data.latest_headline }}</h5>
+        <p>{{ mars_data.headline_desc }}</p>
       </div>
     </div>
 
     <!-- New section divided into two columns -->
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-7">
         <h3><b>Featured JPL Image</b></h3>
-        <img src={{ mars_data.featured_image_url }} height=auto width=750px>
+        <img src={{ mars_data.featured_image_url }} width=100%>
       </div>
 
-        <!-- Facts Table-->
-        <div class="row">
+      <!-- Facts Table-->
+      <!-- <div class="row"> -->
+      <div class="col-md-5">
           <div class="table">
             <h3><b>Mars Facts</b></h3>
-            <p>{{mars_data.mars_facts | safe}}</p>
+            <table border="1" class="dataframe">
+              <thead>
+                <tr>
+                  <th>Measure</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>Equatorial Diameter:</th>
+                  <td>6,792 km</td>
+                </tr>
+                <tr>
+                  <th>Polar Diameter:</th>
+                  <td>6,752 km</td>
+                </tr>
+                <tr>
+                  <th>Mass:</th>
+                  <td>6.39 × 10^23 kg (0.11 Earths)</td>
+                </tr>
+                <tr>
+                  <th>Moons:</th>
+                  <td>2 (Phobos &amp; Deimos)</td>
+                </tr>
+                <tr>
+                  <th>Orbit Distance:</th>
+                  <td>227,943,824 km (1.38 AU)</td>
+                </tr>
+                <tr>
+                  <th>Orbit Period:</th>
+                  <td>687 days (1.9 years)</td>
+                </tr>
+                <tr>
+                  <th>Surface Temperature:</th>
+                  <td>-87 to -5 °C</td>
+                </tr>
+                <tr>
+                  <th>First Record:</th>
+                  <td>2nd millennium BC</td>
+                </tr>
+                <tr>
+                  <th>Recorded By:</th>
+                  <td>Egyptian astronomers</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </div>       
       </div>
-    
+
           <!-- Mars Hemispheres -->
-        <h3 style="margin-top: 70px; padding-top: 60px; text-align: center;">Mars Hemispheres</h3>
-        <div class="cards">
-          <div class="col-md-12">
-            <div class="row">
-                {% for hemisphere in mars_data.hemi_list %}
-                <div class="col-md-6">
-                    <div class="card bg-light" style="margin: 30px;">
-                        <img class="card-img-top" src="{{ hemisphere.hemi_image }}" />
-                        <div class="card-body">
-                            <h5 class="card-text" style="text-align: center"> {{ hemisphere.hemi_title }} </h5>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+      <h3 style="margin-top: 70px; padding-top: 60px; text-align: center;"><b>Mars Hemispheres</b> </h3>
+      <div class="cards">
+        <div class="col-md-12">
+          <div class="row">
+            {% for hemisphere in mars_data.hemi_list %}
+              <div class="col-md-6">
+                  <div class="card bg-light" style="margin: 30px;">
+                      <img class="card-img-top" src="{{ hemisphere.hemi_image }}" />
+                      <div class="card-body">
+                          <h5 class="card-text" style="text-align: center"> {{ hemisphere.hemi_title }} </h5>
+                      </div>
+                  </div>
+              </div>
+            {% endfor %}
           </div>
         </div>
       </div>
     </div>
-  </body>
-  </html>
+  </div>
+</body>
+</html>
